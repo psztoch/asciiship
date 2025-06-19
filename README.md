@@ -31,7 +31,6 @@ What does it show?
     * Exit code of last command, when it's not zero.
     * `#` when root, `%` otherwise.
     * Keymap indicator.
-  * Magic enter feature (`ls`, `dirs`, `git status`)
 
 Requirements
 ------------

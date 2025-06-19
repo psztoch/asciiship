@@ -51,22 +51,3 @@ PS1='
 %(2L.%B%F{yellow}(%L)%f%b .)%(!.%B%F{red}%n%f%b@.%B%F{yellow}%n%f%b@)%B%F{green}%m%f%b:%B%F{cyan}%~%f%b${(e)git_info[prompt]}${VIRTUAL_ENV:+" via %B%F{yellow}${VIRTUAL_ENV:t}%f%b"}${duration_info}
 %B%(1j.%F{blue}*%f .)%(?.%F{green}.%F{red}%? )$(_prompt_asciiship_vimode)%f%b '
 unset RPS1
-
-_prompt_mnml_buffer-empty() {
-  if [[ -z ${BUFFER} && ${CONTEXT} == start ]]; then
-    # draw infoline
-    local -i a_files=$(command ls -Aq | command wc -l)
-    print -P "%F{244}ls ${a_files}:%f"
-    # display magic enter
-    command ls -AF
-    if (( ${#dirstack} > 0 )) print -P %F{244}dirs: %F{cyan}%B${${dirstack}//\//%b\/%B}%b%f
-    command git status -s 2>/dev/null
-    print -Pn ${PS1}
-    zle redisplay
-  else
-    zle accept-line
-  fi
-}
-
-zle -N buffer-empty _prompt_mnml_buffer-empty
-bindkey '^M' buffer-empty
