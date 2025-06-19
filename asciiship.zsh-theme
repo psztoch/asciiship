@@ -51,3 +51,9 @@ PS1='
 %(2L.%B%F{yellow}(%L)%f%b .)%(!.%B%F{red}%n%f%b@.%B%F{yellow}%n%f%b@)%B%F{green}%m%f%b:%B%F{cyan}%~%f%b${(e)git_info[prompt]}${VIRTUAL_ENV:+" via %B%F{yellow}${VIRTUAL_ENV:t}%f%b"}${duration_info}
 %B%(1j.%F{blue}*%f .)%(?.%F{green}.%F{red}%? )$(_prompt_asciiship_vimode)%f%b '
 unset RPS1
+
+if [ -f "/usr/lib/mc/mc-wrapper.sh" ] ; then
+  alias mc=". /usr/lib/mc/mc-wrapper.sh"
+fi
+
+alias root='sudo --preserve-env=SSH_CLIENT,SSH_AUTH_SOCK tmux new-session -A -s root -f active-pane'
