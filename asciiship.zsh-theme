@@ -58,7 +58,7 @@ _prompt_mnml_buffer-empty() {
     local -i a_files=$(command ls -Aq | command wc -l)
     print -P "%F{244}ls ${a_files}:%f"
     # display magic enter
-    command ls -AF --group-directories-first --color=auto
+    command ls -AF
     if (( ${#dirstack} > 0 )) print -P %F{244}dirs: %F{cyan}%B${${dirstack}//\//%b\/%B}%b%f
     command git status -s 2>/dev/null
     print -Pn ${PS1}
