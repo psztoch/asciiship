@@ -7,14 +7,10 @@ _prompt_asciiship_vimode() {
   esac
 }
 
-_prompt_asciiship_keymap_select() {
-  zle reset-prompt
-  zle -R
-}
-if autoload -Uz is-at-least && is-at-least 5.3; then
-  autoload -Uz add-zle-hook-widget && \
-      add-zle-hook-widget -Uz keymap-select _prompt_asciiship_keymap_select
-else
+if (( ! ${+functions[_prompt_asciiship_keymap_select]} )); then
+  functions[_prompt_asciiship_keymap_select]=$'zle reset-prompt
+zle -R
+'${widgets[zle-keymap-select]#user:}
   zle -N zle-keymap-select _prompt_asciiship_keymap_select
 fi
 
@@ -24,8 +20,7 @@ setopt nopromptbang prompt{cr,percent,sp,subst}
 
 autoload -Uz add-zsh-hook
 # Depends on duration-info module to show last command duration
-if (( ${+functions[duration-info-preexec]} && \
-    ${+functions[duration-info-precmd]} )); then
+if (( ${+functions[duration-info-preexec]} && ${+functions[duration-info-precmd]} )); then
   zstyle ':zim:duration-info' format ' took %B%F{yellow}%d%f%b'
   add-zsh-hook preexec duration-info-preexec
   add-zsh-hook precmd duration-info-precmd
